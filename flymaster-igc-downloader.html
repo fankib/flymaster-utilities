@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flymaster IGC Download</title>
+  <style>
+	body {
+		color: #BAD4E2;
+		background-color: #2F4858;
+		font-family: sans-serif;
+		font-size: 16pt;
+	}
+	
+	a{
+		color: #BAD4E2;
+	}
+	
+	input {
+		width: 250px;
+		border: 0px;
+		padding: 5px;
+		border: 3px solid white;
+	}
+	
+	input:focus {
+		border: 3px solid #CDDAE1;
+		outline: none;
+	}
+	
+	button {
+		padding: 10px;
+		background-color: #CDDAE1;
+		border: 3px solid #CDDAE1;
+		width: 90px;
+	}
+	
+	button:hover{
+		border: 3px solid #E6E8E9;
+	}
+	
+  </style>
+  
+  <script>
+	function decode_url() {
+		txt_url = document.getElementById("txt_url");
+		url = txt_url.value;
+		//url_decoded = decodeURI(url);
+		url_decoded = url.replace(/\\/g, "")
+		
+		a_result = document.getElementById("a_result");
+		a_result.href = url_decoded;
+		a_result.innerHTML = url_decoded;		
+	};
+	
+	function guess_url() {
+		group_id = document.getElementById("txt_group_id").value;
+		date = document.getElementById("txt_date").value;
+		
+		url = "https://s3-eu-west-1.amazonaws.com/downloads.flymaster.net/IGCs/igc" + group_id + "_" + date + ".zip"
+		
+		a_result = document.getElementById("a_result");
+		a_result.href = url;
+		a_result.innerHTML = url;
+	};
+  </script>
+</head>
+<body>
+
+<h2>Instructions</h2>
+<div>
+	<ul>
+		<li>Goto <a href="https://lt.flymaster.net" target="_blank" >https://lt.flymaster.net</a> and login.</li>
+		<li>Goto "Past Events", search the group and press play. The Group ID appears in the URL.</li>
+		<li>Guess the date of the event. Enter it in the format "YYYY-MM-DD"</li>
+		<li>Press submit</li>
+		<li>There appears an Encoded URL if the ZIP has been generated. Paste this URL into the URL Decoder.</li>
+	</ul>
+</div>
+	
+<h2>Input Data</h2>
+<div>
+	<form action="https://lt.flymaster.net/bsRequestGroupIGC.php" method="post" target="_blank">
+		<input type="hidden" name="onlycheck" value="1" />
+		<table>
+			<tr>
+				<td>Flymaster Group ID:</td>
+				<td><input id="txt_group_id" type="text" name="groupId" placeholder="5768"/></td>
+			</tr>
+			<tr>
+				<td>Date</td>
+				<td><input id="txt_date" type="date" name="date" placeholder="2024-04-13" /></td>
+			</tr>			
+			<tr>
+				<td>&nbsp;</td>
+				<td><button type="submit">Submit</button></td>
+			</tr>
+			<tr>		
+				<td>Guess the URL:</td>	
+				<td><button type="button" onclick="guess_url()">I'm Lucky</button></td>
+			</tr>
+		</table>		
+	</form>
+</div>
+
+<h2>URL Decoder</h2>
+<div>
+	<table>
+		<tr>
+			<td>URL:</td>
+			<td><input id="txt_url" type="text" placeholder="https:\/\/s3-eu-west-1.amazonaws.com\/downloads.flymaster.net\/IGCs\/igc5765_2024-04-13.zip" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><button onclick="decode_url()">Decode</button></td>
+		</tr>						
+	</table>	
+</div>
+
+<h2>Download IGCs</h2>
+<div>	
+	<a id="a_result"></a>	
+</div>
+
+<!--
+<h2>Response</h2>
+<div>
+	<iframe name="result_frame" src="https://lt.flymaster.net/bsRequestGroupIGC.php"></iframe>
+</div>
+-->
+	
+
+	
+
+</body>
+</html>
